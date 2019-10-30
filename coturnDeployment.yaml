@@ -26,19 +26,12 @@ spec:
         - name: config-volume
           mountPath: /turn.conf
           subPath: turn.conf
-#        readinessProbe:
-#          httpGet:
-#            path: /about/health
-#            port: 8080
-#          initialDelaySeconds: 5
-#          periodSeconds: 3
-#          timeoutSeconds: 60        
-#        livenessProbe:
-#          httpGet:
-#            path: /about/health
-#            port: 8080
-#          initialDelaySeconds: 10
-#          periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3478
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
         ports:
         - containerPort: 3478
           protocol: UDP
