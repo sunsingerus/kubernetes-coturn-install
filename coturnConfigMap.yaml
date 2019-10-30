@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coturn-config
+data:
+  turn.conf: |
+    # TURN listener port for UDP and TCP (Default: 3478).
+    # Note: actually, TLS & DTLS sessions can connect to the
+    # "plain" TCP & UDP port(s), too - if allowed by configuration.
+    #
+    #listening-port=3478
+    use-auth-secret
+    static-auth-secret=SecretPassw0rd
+    realm=coturn.sunsingerus.com
+

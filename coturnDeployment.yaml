@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coturn
+  labels:
+    app: coturn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coturn
+  template:
+    metadata:
+      labels:
+        app: coturn
+    spec:
+      volumes:
+      - name: config-volume
+        configMap:
+          name: coturn-config
+      containers:
+      - name: coturn
+        image: sunsingerus/coturn:dev
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: config-volume
+          mountPath: /turn.conf
+          subPath: turn.conf
+#        readinessProbe:
+#          httpGet:
+#            path: /about/health
+#            port: 8080
+#          initialDelaySeconds: 5
+#          periodSeconds: 3
+#          timeoutSeconds: 60        
+#        livenessProbe:
+#          httpGet:
+#            path: /about/health
+#            port: 8080
+#          initialDelaySeconds: 10
+#          periodSeconds: 3
+        ports:
+        - containerPort: 3478
+          protocol: UDP
+        - containerPort: 3478
+          protocol: TCP
+      restartPolicy: Always
+

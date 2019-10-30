@@ -1,0 +1,26 @@
+---
+###
+### NodePort UDP + TCP Service
+###
+apiVersion: v1
+kind: Service
+metadata:
+  name: coturn
+  labels:
+    app: coturn
+spec:
+  selector:
+    app: coturn
+  ports:
+  - name: "port-udp-30500"
+    protocol: UDP
+    nodePort: 30500
+    port: 30500
+    targetPort: 3478
+  - name: "port-tcp-30500"
+    protocol: TCP
+    nodePort: 30500
+    port: 30500
+    targetPort: 3478
+  type: NodePort
+
